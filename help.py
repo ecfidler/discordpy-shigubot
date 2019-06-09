@@ -1,0 +1,17 @@
+import discord
+
+helpEmbed=discord.Embed(title=" !weather help | list of all useful commands", description="All sounds provided by [Noises.online](https://noises.online/) under a CC license", color=0x1c57e3)
+helpEmbed.set_author(name="Shigure Help", url="https://i.redd.it/2qahb6zqok821.jpg", icon_url="attachment://icon.png")
+helpEmbed.set_thumbnail(url="attachment://doodle.png")
+helpEmbed.add_field(name="!weather clear", value="Clears the weather", inline=True)
+helpEmbed.add_field(name="!weather rain", value="Starts a rainstorm", inline=True)
+helpEmbed.add_field(name="!weather thunderstorm", value="Starts a thunderstorm", inline=True)
+helpEmbed.add_field(name="!weather thunder", value="A rainless thunderstorm", inline=True)
+helpEmbed.add_field(name="!weather fire", value="Sitting around a bonfire", inline=True)
+helpEmbed.add_field(name="!toggledownfall", value="Switches between rain and clear", inline=True)
+helpEmbed.add_field(name="!volume [Percentage]", value="Changes the volume to a level between 0 and 100", inline=True)
+helpEmbed.add_field(name="!r [x]d[y]+[z]", value="Rolls a **y** sided die **x** times, summates and adds **z**", inline=True)
+helpEmbed.add_field(name="!domt", value="Draws a card from the deck of many things...", inline=True)
+helpEmbed.add_field(name="!pasta", value="Pulls a copypasta from reddit and displays it in all it's glory", inline=True)
+helpEmbed.add_field(name="!forecast [City]", value="Brings up some basic weather information provided the city is supported", inline=True)
+helpEmbed.set_footer(text="Message @fops#1969 if you have any questions")

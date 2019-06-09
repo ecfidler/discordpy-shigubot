@@ -1,0 +1,5 @@
+reddit app client id
+reddit app client secret
+reddit app user agent
+account username
+account password
