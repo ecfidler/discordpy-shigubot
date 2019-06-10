@@ -1,0 +1,5 @@
+reddit application id 
+reddit application secret
+reddit app name
+reddit account username
+reddit account password
