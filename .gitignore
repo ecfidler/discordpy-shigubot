@@ -1,6 +1,6 @@
-sounds
-.vscode
-__pycache__
-keychain
+sounds/
+.vscode/
+__pycache__/
+keychain/
 __init__.py
 run.bat
