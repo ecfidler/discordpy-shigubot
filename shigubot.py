@@ -11,9 +11,6 @@
  tada :: 🎉
 
  Todo:
- - looping
- - change images in embed from links to attachments
- - add fire weather effect, among other effects
  - When It's done, Take all of the weather based functions and **offload them**
 
  Other Features:
@@ -21,9 +18,7 @@
  - code spelling out words (alpha, bravo, delta)
  - poi
  - tarot card readings
- - get actual weather readings
  - minesweeper
- - pasta
  
  '''
 
