@@ -2,11 +2,6 @@
 
  A bot made for discord.py 1.0.1 by Ethan Fidler
 
- client id :: 574750451564806144
- permissions integer :: 8
-
- https://discordapp.com/oauth2/authorize?client_id=574750451564806144&scope=bot&permissions=8
-
  Emojis
  tada :: 🎉
 
