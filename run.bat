@@ -1,1 +1,2 @@
-python shigubot.py pause
+python shigubot.py
+pause
