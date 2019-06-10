@@ -1,2 +1,0 @@
-python shigubot.py
-pause
