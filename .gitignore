@@ -5,3 +5,6 @@ keychain/
 __init__.py
 run.bat
 images/sauce.jpg
+keychain/owmkey.txt
+keychain/redditkey.txt
+keychain/token.txt
