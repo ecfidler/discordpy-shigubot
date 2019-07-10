@@ -27,6 +27,7 @@ from cards import drawCard
 from pasta import getPasta
 from forecast import getWeather
 from pin import transcribe
+from saucefinder import makeSauceEmbed
 
 #globals
 client = discord.Client()
@@ -162,6 +163,20 @@ async def on_raw_reaction_add(payload):
                     msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
                     await client.get_channel(580587430776930314).send(embed=transcribe(msg))
                     await client.get_channel(payload.channel_id).send("Pinned!")
+
+    if payload.emoji.name == "🍝":
+        async with client.get_channel(payload.channel_id).typing():
+            msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+            try:
+                await msg.attachments[-1].save(".\\images\\sauce.jpg")
+            except:
+                await msg.channel.send("No image found in message")
+            sauce_files = [discord.File(".\\images\\icon.png", filename="icon.png"),discord.File(".\\images\\sauce.jpg",filename="sauce.jpg")]
+            try:
+                await msg.channel.send(files=sauce_files,embed=makeSauceEmbed())
+            except Exception as e:
+                await msg.channel.send("Error, go tell #fops1969")
+                print(e)
 
 @client.event 
 async def on_message(message): # Basically my Main
