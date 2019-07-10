@@ -31,14 +31,13 @@ def makeSauceEmbed():
 
     results = saucenao.check_file(file_name="J:\\Github\\discordpy-shigubot\\images\\sauce.jpg")
 
-    sauceEmbed = discord.Embed(title="Source[s] found:", color=0x00000c)
+    sauceEmbed = discord.Embed(title="Source[s] found:", color=0xea9cff)
     sauceEmbed.set_author(name="sauceNAO", url="https://saucenao.com/index.php", icon_url="attachment://icon.png")
     sauceEmbed.set_thumbnail(url="attachment://sauce.jpg")
 
     if results == []:
         sauceEmbed.add_field(name="No results :(", value="It may be an error with the bot, try checking the website", inline=False)
         return sauceEmbed
-
 
     for x in results:
 
