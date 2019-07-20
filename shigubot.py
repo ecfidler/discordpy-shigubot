@@ -161,7 +161,7 @@ async def on_raw_reaction_add(payload):
             for role in client.get_guild(payload.guild_id).get_member(payload.user_id).roles:
                 if role.id == 374095810868019200:
                     msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
-                    await client.get_channel(580587430776930314).send(embed=transcribe(msg))
+                    await client.get_channel(580587430776930314).send(embed=transcribe(msg,client.get_guild(payload.guild_id).get_member(payload.user_id).display_name))
                     await client.get_channel(payload.channel_id).send("Pinned!")
 
     if payload.emoji.name == "🍝":
@@ -185,6 +185,7 @@ async def on_message(message): # Basically my Main
 
     if message.mention_everyone:
         message.channel.send("<:notification:544011898941734922>")
+        print("Everyone just got pinged")
 
     if message.author == client.user:
         return
@@ -203,6 +204,16 @@ async def on_message(message): # Basically my Main
 
     if "!say" in message.content.lower():
         await play(message)
+
+    if "!ss" in message.content.lower().strip():
+        guildId = message.channel.guild.id
+        try:
+            vcId = message.author.voice.channel.id
+            URLmessage = "https://discordapp.com/channels/" + str(guildId) + "/" + str(vcId)
+            await message.channel.send(URLmessage)
+        except Exception as e:
+            await message.channel.send("You aren't in a Voice Channel")
+            print(e)
 
     if "!volume" in message.content.lower():
         msg = int(message.content.strip("!volume").strip())

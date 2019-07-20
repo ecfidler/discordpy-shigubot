@@ -1,6 +1,6 @@
 import discord
 
-def transcribe(message):
+def transcribe(message,pinner):
     content = message.content
 
     userColor = message.author.top_role.colour.value
@@ -16,7 +16,7 @@ def transcribe(message):
     created = message.created_at # returns datetime.datetime
     jumpLink = message.jump_url
     realDate = str(created.month) + "/" + str(created.day) + "/" + str(created.year)
-    footer = str(channel + " | " + realDate)
+    footer = str(str(channel) + " | " + str(realDate) + " | pinned by " + str(pinner))
 
     takenMessage.set_author(name=userName, url=jumpLink,icon_url=pFP)
     takenMessage.set_footer(text=footer)
