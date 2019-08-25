@@ -66,6 +66,10 @@ def updateSource():
     tSource.volume = vol
     return tSource
 
+def checkWHID(message):
+    if message.channel.guild.id != 173840048343482368:
+        return
+
 async def setVol(num,message):
     global vol
     global source
@@ -157,6 +161,7 @@ async def on_ready():
 @client.event
 async def on_raw_reaction_add(payload):
     if payload.emoji.name == "📌":
+        checkWHID(await client.get_channel(payload.channel_id).fetch_message(payload.message_id))
         async with client.get_channel(payload.channel_id).typing():
             for role in client.get_guild(payload.guild_id).get_member(payload.user_id).roles:
                 if role.id == 374095810868019200:
@@ -181,7 +186,7 @@ async def on_raw_reaction_add(payload):
 
 @client.event 
 async def on_message(message): # Basically my Main
-    print(f"{message.channel}: {message.author}: {message.content}")
+    print(f"{message.channel.guild.name[:4]} {message.channel}: {message.author}: {message.content}")
 
     if message.mention_everyone:
         message.channel.send("<:notification:544011898941734922>")
@@ -250,12 +255,13 @@ async def on_message(message): # Basically my Main
             await message.channel.send(file=icon_file,embed=getWeather(pruned))
 
     if "!thanos" in message.content.lower():
+        checkWHID(message)
         async with message.channel.typing():
             for role in message.author.roles:
                 if role.id == 374095810868019200:
                     await snap(message)
                     #await message.add_reaction("<a:snap:583370125592494081>")
-                    await message.channel.sent("<a:snap:583370125592494081>")
+                    await message.channel.send("<a:snap:583370125592494081>")
         
 
     if "!weather" in message.content.lower(): # weather commands (plays into an internal function for simplicity)
