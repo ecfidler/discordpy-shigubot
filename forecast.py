@@ -28,7 +28,10 @@ LocationIds = {
 #obs = owm.weather_at_place("Columbus,US") # creates observation object
 def getWeather(Location):
 
-        id = LocationIds[Location]
+        try: 
+                id = LocationIds[Location]
+        except: 
+                id = int(Location)
 
         obs = owm.weather_at_id(id)
 
