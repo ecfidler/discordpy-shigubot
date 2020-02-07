@@ -182,7 +182,12 @@ async def on_raw_reaction_add(payload):
                     print(e)
             except:
                 await msg.channel.send("No image found in message")
-            
+
+@client.event
+async def on_member_join(member):
+    #client.get_user(173839815400357888).mention
+    if member.guild.id == 592214628550049794:
+        await client.get_channel(675182191520776214).send("Ohayo " + member.mention + "\nWelcome to Yoni's Sauce Emporium! Please take a second to read the #rules channel before getting lost in the sauce. If you have any further inquires, feel free to ask " + client.get_user(173839815400357888).mention + ".")
 
 @client.event 
 async def on_message(message): # Basically my Main
