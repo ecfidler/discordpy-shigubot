@@ -178,7 +178,7 @@ async def on_raw_reaction_add(payload):
                 try:
                     await msg.channel.send(files=sauce_files,embed=makeSauceEmbed())
                 except Exception as e:
-                    await msg.channel.send("Error, go tell #fops1969")
+                    await msg.channel.send("Error, go tell " + client.get_user(173839815400357888).mention)
                     print(e)
             except:
                 await msg.channel.send("No image found in message")
