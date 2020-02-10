@@ -1,6 +1,6 @@
 '''
 
- A bot made for discord.py 1.0.1 by Ethan Fidler
+ A bot made for discord.py 1.3.1 by Ethan Fidler or @fops#1969 on discord
 
  Emojis
  tada :: 🎉
@@ -68,6 +68,10 @@ def updateSource():
 
 def checkWHID(message):
     if message.channel.guild.id != 173840048343482368:
+        return
+
+def checkSauce(message):
+    if message.channel.guild.id != 592214628550049794:
         return
 
 async def setVol(num,message):
@@ -182,6 +186,28 @@ async def on_raw_reaction_add(payload):
                     print(e)
             except:
                 await msg.channel.send("No image found in message")
+
+'''
+
+if payload.emoji.name == "": #chef's choice mild
+        checkSauce(await client.get_channel(payload.channel_id).fetch_message(payload.message_id))
+        async with client.get_channel(payload.channel_id).typing():
+            for role in client.get_guild(payload.guild_id).get_member(payload.user_id).roles:
+                if role.id == 676571207323090944:
+                    msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+                    await client.get_channel(592222434396995604).send(embed=transcribe(msg,client.get_guild(payload.guild_id).get_member(payload.user_id).display_name))
+                    await client.get_channel(payload.channel_id).send("Image sent to chef's choice mild!")
+
+if payload.emoji.name == "": #chef's choice spicy
+        checkSauce(await client.get_channel(payload.channel_id).fetch_message(payload.message_id))
+        async with client.get_channel(payload.channel_id).typing():
+            for role in client.get_guild(payload.guild_id).get_member(payload.user_id).roles:
+                if role.id == 676571207323090944:
+                    msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+                    await client.get_channel(592225505592344577).send(embed=transcribe(msg,client.get_guild(payload.guild_id).get_member(payload.user_id).display_name))
+                    await client.get_channel(payload.channel_id).send("Image sent to chef's choice spicy!")
+
+'''
 
 @client.event
 async def on_member_join(member):
