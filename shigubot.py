@@ -214,6 +214,7 @@ async def on_member_join(member):
     #client.get_user(173839815400357888).mention
     if member.guild.id == 592214628550049794:
         await client.get_channel(675182191520776214).send("Ohayo " + member.mention + "\nWelcome to Yoni's Sauce Emporium! Please take a second to read the #rules channel before getting lost in the sauce. If you have any further inquires, feel free to ask " + client.get_user(173839815400357888).mention + ".")
+        await member.add_roles(member.guild.get_role(592215547647754240))
 
 @client.event 
 async def on_message(message): # Basically my Main
@@ -238,8 +239,26 @@ async def on_message(message): # Basically my Main
     if "!flip" in message.content.lower(): # simple ping alt
         await message.channel.send("flop!")
 
-    if "!say" in message.content.lower():
-        await play(message)
+    if "!echo" in message.content.lower():
+        if message.author.id == authorId:
+            channelDict = {
+                "do":200852342667476992,
+                "valet":675182191520776214,
+                "general":592217976061689866
+            }
+            msg = message.content.strip("!echo ").split()
+            id_or_name = msg[0]
+            if "/" in id_or_name:
+                await client.get_guild(int(id_or_name.split("/")[0])).get_channel(int(id_or_name.split("/")[1])).send(message.content.strip("!echo ").split(" ",1)[1])
+            elif id_or_name in channelDict:
+                try:
+                    await message.guild.get_channel(channelDict[id_or_name]).send(message.content.strip("!echo ").split(" ",1)[1])
+                except Exception as e:
+                    print(e)
+            else:
+                await message.guild.get_channel(int(id_or_name)).send(message.content.strip("!echo ").split(" ",1)[1])
+
+
 
     if "!ss" in message.content.lower().strip():
         guildId = message.channel.guild.id
