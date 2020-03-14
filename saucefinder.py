@@ -12,13 +12,16 @@ import logging
 from saucenao import SauceNao
 #from shigubot import getText
 import discord
+import os
+
+source_path = os.path.dirname(os.path.abspath(__file__))
 
 def getText(file):
     with open(file, "r") as f:
         lines = f.read()
         return lines.strip()
 
-key = getText(".\\keychain\\saucekey.txt")
+key = getText(os.path.join(source_path,'keychain','saucekey.txt'))
 
 saucenao = SauceNao(directory='directory', databases=999, minimum_similarity=65, combine_api_types=False, api_key=key,
                     exclude_categories='', move_to_categories=False,  use_author_as_category=False,
@@ -27,9 +30,9 @@ saucenao = SauceNao(directory='directory', databases=999, minimum_similarity=65,
 
 def makeSauceEmbed():
 
-    # results = saucenao.check_file(file_name=".\\images\\sauce.jpg")
+    results = saucenao.check_file(file_name=os.path.join(source_path,'images','sauce.jpg'))
 
-    results = saucenao.check_file(file_name="J:\\Github\\discordpy-shigubot\\images\\sauce.jpg")
+    #results = saucenao.check_file(file_name="J:\\Github\\discordpy-shigubot\\images\\sauce.jpg") # os.path.join(source_path,'images','sauce.jpg')
 
     sauceEmbed = discord.Embed(title="Source[s] found:", color=0xea9cff)
     sauceEmbed.set_author(name="sauceNAO", url="https://saucenao.com/index.php", icon_url="attachment://icon.png")

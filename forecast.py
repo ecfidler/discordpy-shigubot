@@ -10,13 +10,16 @@ Dayton :: id=4509884
 
 from pyowm import OWM
 import discord
+import os
+
+source_path = os.path.dirname(os.path.abspath(__file__))
 
 def getText(file):
     with open(file, "r") as f:
         lines = f.read()
         return lines.strip()
 
-owm = OWM(getText(".\\keychain\\owmkey.txt"))
+owm = OWM(getText(os.path.join(source_path,'keychain','owmkey.txt')))
 
 LocationIds = {
         "columbus":4509177,

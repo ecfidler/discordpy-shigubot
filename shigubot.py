@@ -20,6 +20,7 @@
 import discord
 import asyncio
 import random
+import os
 
 from help import helpEmbed
 from dice import dice
@@ -32,7 +33,8 @@ from saucefinder import makeSauceEmbed
 #globals
 client = discord.Client()
 authorId = 173839815400357888 # fops#1969
-currentWeather = '.\\sounds\\rain.wav'
+source_path = os.path.dirname(os.path.abspath(__file__))
+currentWeather = os.path.join(source_path,'sounds','rain.wav')
 currStatus = discord.Activity(name="the rain | !weather help", type=discord.ActivityType.listening)
 source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(currentWeather))
 vol = 0.25
@@ -95,6 +97,7 @@ async def setWeather(weatherIn,message):
     global currentWeather
     global currentClient
     global source
+    global source_path
 
     #currentClient = updateClient(message)
 
@@ -106,7 +109,7 @@ async def setWeather(weatherIn,message):
             await join(message)
         except:
             pass
-        currentWeather = ".\\sounds\\" + weatherIn
+        currentWeather = os.path.join(source_path,'sounds',weatherIn) #".\\sounds\\" + weatherIn
         if client.voice_clients[currentClient].is_playing():
             client.voice_clients[currentClient].stop()
         source = LoopingSource(updateSource)
@@ -116,8 +119,10 @@ async def setWeather(weatherIn,message):
 
 async def weather(message):
 
-    if " help" in message.content.lower(): #help command, tells user the working commands
-        help_files = [discord.File(".\\images\\icon.png", filename="icon.png"),discord.File(".\\images\\doodle.png", filename="doodle.png")]
+    global source_path
+
+    if " help" in message.content.lower(): #help command, tells user the working commands ".\\images\\icon.png"
+        help_files = [discord.File(os.path.join(source_path,'images','icon.png'), filename="icon.png"),discord.File(os.path.join(source_path,'images','doodle.png'), filename="doodle.png")]
         await message.author.send(files=help_files,embed=helpEmbed)
         await message.add_reaction("✉")
 
@@ -149,7 +154,7 @@ async def weather(message):
 async def play(message):
     global currentClient
     #currentClient = updateClient(message)
-    client.voice_clients[currentClient].play(discord.FFmpegPCMAudio('.\\sounds\\rain.wav'))
+    client.voice_clients[currentClient].play(discord.FFmpegPCMAudio(os.path.join(source_path,'sounds','rain.wav')))
 
 async def snap(message):
     members = message.author.voice.channel.members
@@ -177,8 +182,8 @@ async def on_raw_reaction_add(payload):
         async with client.get_channel(payload.channel_id).typing():
             msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
             try:
-                await msg.attachments[-1].save(".\\images\\sauce.jpg")
-                sauce_files = [discord.File(".\\images\\icon.png", filename="icon.png"),discord.File(".\\images\\sauce.jpg",filename="sauce.jpg")]
+                await msg.attachments[-1].save(os.path.join(source_path,'images','sauce.jpg'))
+                sauce_files = [discord.File(os.path.join(source_path,'images','icon.png'), filename="icon.png"),discord.File(os.path.join(source_path,'images','sauce.jpg'),filename="sauce.jpg")]
                 try:
                     await msg.channel.send(files=sauce_files,embed=makeSauceEmbed())
                 except Exception as e:
@@ -219,6 +224,8 @@ async def on_member_join(member):
 @client.event 
 async def on_message(message): # Basically my Main
     print(f"{message.channel.guild.name[:4]} {message.channel}: {message.author}: {message.content}")
+
+    global source_path
 
     if message.mention_everyone:
         message.channel.send("<:notification:544011898941734922>")
@@ -286,7 +293,7 @@ async def on_message(message): # Basically my Main
     if "!domt" in message.content.lower():
         async with message.channel.typing(): #added this line
             await message.add_reaction("🃏")
-            card_file = discord.File(".\\images\\avdol.jpg", filename="avdol.jpg")
+            card_file = discord.File(os.path.join(source_path,'images','avdol.jpg'), filename="avdol.jpg")
             await message.channel.send(file=card_file,embed=drawCard())
 
     if "!pasta" in message.content.lower():
@@ -301,7 +308,7 @@ async def on_message(message): # Basically my Main
         async with message.channel.typing(): #added this line
             pruned = message.content.lower().split(" ",2)[1].strip()
             await message.add_reaction("🌀")
-            icon_file = discord.File(".\\images\\icon.png", filename="icon.png")
+            icon_file = discord.File(os.path.join(source_path,'images','icon.png'), filename="icon.png")
             await message.channel.send(file=icon_file,embed=getWeather(pruned))
 
     if "!thanos" in message.content.lower():
@@ -325,4 +332,4 @@ async def on_message(message): # Basically my Main
             await setWeather('clear',message)
             await message.add_reaction("☀")
 
-client.run(getText(".\\keychain\\token.txt"))
+client.run(getText(os.path.join(source_path,'keychain','token.txt')))
