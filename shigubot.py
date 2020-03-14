@@ -270,7 +270,8 @@ async def on_message(message): # Basically my Main
         if (message.author.id == authorId):
             await message.add_reaction("🔄")
             os.system("cd")
-            os.system("python3 "+ os.path.join("home","pi","home","Shigure","discordpy-shigubot","shigubot.py") + " &")
+            os.system(os.path.join("home","Shigure","discordpy-shigubot"))
+            os.system("python3 retrofit.py &")
             await client.close()
 
     if "!ss" in message.content.lower().strip():
