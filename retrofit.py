@@ -8,5 +8,5 @@ os.system("git pull https://github.com/ecfidler/discordpy-shigubot.git")
 time.sleep(5)
 
 os.system("ls")
-os.system("python3 -m " + path + "/shigubot.py &")
+os.system("python3 -m shigubot.py &")
 print("cloned")
