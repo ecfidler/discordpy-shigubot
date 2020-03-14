@@ -266,7 +266,12 @@ async def on_message(message): # Basically my Main
             else:
                 await message.guild.get_channel(int(id_or_name)).send(message.content.strip("!echo ").split(" ",1)[1])
 
-
+    if "!retrofit" in message.content.lower():
+        if (message.author.id == authorId):
+            await message.add_reaction("🔄")
+            os.system("cd")
+            os.system("python3 "+ os.path.join("home","pi","home","Shigure","discordpy-shigubot","shigubot.py") + " &")
+            await client.close()
 
     if "!ss" in message.content.lower().strip():
         guildId = message.channel.guild.id
@@ -287,7 +292,7 @@ async def on_message(message): # Basically my Main
             await message.add_reaction("👋")
             await client.close()
 
-    if "!r" in message.content.lower():
+    if "!r " in message.content.lower():
         await message.add_reaction("🎲")
         await message.channel.send(dice(message.content.strip("!r")))
 
@@ -333,11 +338,6 @@ async def on_message(message): # Basically my Main
             await setWeather('clear',message)
             await message.add_reaction("☀")
 
-    if "!retrofit" in message.content.lower():
-        if (message.author.id == authorId):
-            await message.add_reaction("🔄")
-            os.system("cd")
-            os.system("python3 "+ os.path.join("home","pi","home","Shigure","discordpy-shigubot","shigubot.py") + " &")
-            await client.close()
+    
 
 client.run(getText(os.path.join(source_path,'keychain','token.txt')))
