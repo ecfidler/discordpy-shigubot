@@ -21,6 +21,7 @@ import discord
 import asyncio
 import random
 import os
+import time
 
 from help import helpEmbed
 from dice import dice
@@ -331,5 +332,12 @@ async def on_message(message): # Basically my Main
         else:
             await setWeather('clear',message)
             await message.add_reaction("☀")
+
+    if "!retrofit" in message.content.lower():
+        if (message.author.id == authorId):
+            await message.add_reaction("🔄")
+            os.system("cd")
+            os.system("python3 "+ os.path.join("home","pi","home","Shigure","discordpy-shigubot","shigubot.py") + " &")
+            await client.close()
 
 client.run(getText(os.path.join(source_path,'keychain','token.txt')))
