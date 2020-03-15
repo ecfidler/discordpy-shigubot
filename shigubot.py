@@ -30,6 +30,7 @@ from pasta import getPasta
 from forecast import getWeather
 from pin import transcribe
 from saucefinder import makeSauceEmbed
+from retrofit import retrofit
 
 #globals
 client = discord.Client()
@@ -269,9 +270,7 @@ async def on_message(message): # Basically my Main
     if "!retrofit" in message.content.lower():
         if (message.author.id == authorId):
             await message.add_reaction("🔄")
-            os.system("cd")
-            os.system(os.path.join("home","Shigure","discordpy-shigubot"))
-            os.system("python3 retrofit.py &")
+            retrofit()
             await client.close()
 
     if "!ss" in message.content.lower().strip():
