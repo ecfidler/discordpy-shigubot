@@ -195,18 +195,19 @@ async def on_raw_reaction_add(payload):
                 await msg.channel.send("No image found in message")
 
     sauce_messages = ["earned 3 michelin stars!","was some good shit"]
+ #592222434396995604
 
-    '''
+    if payload.emoji.name == "🔵": #chef's choice mild
+                checkSauce(await client.get_channel(payload.channel_id).fetch_message(payload.message_id))
+                async with client.get_channel(payload.channel_id).typing():
+                    for role in client.get_guild(payload.guild_id).get_member(payload.user_id).roles:
+                        if role.id == 676571207323090944:
+                            
+                            msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+                            outString = msg.author.mention + "\'s post in <#" + str(msg.channel.id) + "> " + random.choice(sauce_messages)
+                            await msg.attachments[-1].save(os.path.join(source_path,'images','chefchoice.jpg'))
+                            await client.get_channel(592222434396995604).send(outString,file=discord.File(os.path.join(source_path,'images','chefchoice.jpg')))
 
-    if payload.emoji.name == "": #chef's choice mild
-            checkSauce(await client.get_channel(payload.channel_id).fetch_message(payload.message_id))
-            async with client.get_channel(payload.channel_id).typing():
-                for role in client.get_guild(payload.guild_id).get_member(payload.user_id).roles:
-                    if role.id == 676571207323090944:
-                        msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
-                        await client.get_channel(592222434396995604).send(embed=transcribe(msg,client.get_guild(payload.guild_id).get_member(payload.user_id).display_name))
-                        await client.get_channel(payload.channel_id).send("Image sent to chef's choice mild!")
-    '''
     if payload.emoji.name == "🔴": #chef's choice spicy
             checkSauce(await client.get_channel(payload.channel_id).fetch_message(payload.message_id))
             async with client.get_channel(payload.channel_id).typing():
@@ -217,10 +218,6 @@ async def on_raw_reaction_add(payload):
                         outString = msg.author.mention + "\'s post in <#" + str(msg.channel.id) + "> " + random.choice(sauce_messages)
                         await msg.attachments[-1].save(os.path.join(source_path,'images','chefchoice.jpg'))
                         await client.get_channel(592225505592344577).send(outString,file=discord.File(os.path.join(source_path,'images','chefchoice.jpg')))
-                        '''
-                        await client.get_channel(592225505592344577).send(embed=transcribe(msg,client.get_guild(payload.guild_id).get_member(payload.user_id).display_name))
-                        await client.get_channel(payload.channel_id).send("Image sent to chef's choice spicy!")
-                        '''
 
 
 
