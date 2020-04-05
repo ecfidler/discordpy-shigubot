@@ -224,14 +224,17 @@ async def on_raw_reaction_add(payload):
     }
 
     msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
-    role_message_id = 696441485117227098 # id of message that is the main role adder
+    role_message_id = 696441485117227098 # id of message that is the main role adder 
+    await msg.channel.send("debug1")
     if payload.message_id == role_message_id:
-        role = msg.author.guild.get_role(roles_dict[payload.emoji.name])
+        await msg.channel.send("debug2")
+        await role = msg.author.guild.get_role(roles_dict[payload.emoji.name])
         try:
+            await msg.channel.send("debug3")
             await msg.author.add_roles(role)
         except Exception as _:
             return
-        msg.author.send("Role added: " + role.name)
+        await msg.author.send("Role added: " + role.name)
         
 
 
