@@ -168,11 +168,11 @@ async def snap(message):
 async def on_ready():
     print(f" {client.user}, ready to sortie")
     await client.change_presence(activity=currStatus)
-    '''
     try:
         with open(os.path.join(source_path,"msg.txt"), 'r') as file:
-            await get_message
-    '''
+            dpath = file.readline().split() # guild, channel, message
+            msg = await client.get_guild(dpath[0]).get_channel(dpath[1]).fetch_message(dpath[2])
+            await msg.add_reaction("✅")
 
 @client.event
 async def on_raw_reaction_add(payload):
@@ -223,9 +223,10 @@ async def on_raw_reaction_add(payload):
                         outString = msg.author.mention + "\'s post in <#" + str(msg.channel.id) + "> " + random.choice(sauce_messages)
                         await msg.attachments[-1].save(os.path.join(source_path,'images','chefchoice.jpg'))
                         await client.get_channel(592225505592344577).send(outString,file=discord.File(os.path.join(source_path,'images','chefchoice.jpg')))
-    '''
+    
     roles_dict = {
-        "🍺" : 696441249309130774
+        "🍺" : 696441249309130774,
+        "beer" : 696441249309130774
     }
 
     msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
@@ -235,14 +236,14 @@ async def on_raw_reaction_add(payload):
         await msg.channel.send("debug2")
         
         try:
-            role = await msg.author.guild.get_role(696441249309130774) # roles_dict[payload.emoji.name]
+            role = await msg.author.guild.get_role(roles_dict[payload.emoji.name]) # roles_dict[payload.emoji.name] // 696441249309130774
             await msg.channel.send("debug3")
             await msg.author.add_roles(role)
             await msg.author.send("Role added: " + role.name)
         except Exception as e:
             await msg.channel.send(type(e)) #debug4
             return
-    '''
+    
         
 
 
@@ -300,11 +301,10 @@ async def on_message(message): # Basically my Main
     if "!retrofit" in message.content.lower():
         if (message.author.id == authorId):
             await message.add_reaction("🔄")
-            '''
+
             with open(os.path.join(source_path,"msg.txt"), 'w') as file:
-                file.write(message.channel.id)
-                file.write(message.id)
-            '''
+                file.write((str(message.channel.guild.id),str(message.channel.id),str(message.id)))
+            
             retrofit()
             await client.close()
 
