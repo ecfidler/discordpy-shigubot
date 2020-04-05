@@ -168,6 +168,9 @@ async def snap(message):
 async def on_ready():
     print(f" {client.user}, ready to sortie")
     await client.change_presence(activity=currStatus)
+
+    global source_path
+
     try:
         with open(os.path.join(source_path,"msg.txt"), 'r') as file:
             dpath = file.readline().split() # guild, channel, message
@@ -302,7 +305,7 @@ async def on_message(message): # Basically my Main
         if (message.author.id == authorId):
             await message.add_reaction("🔄")
 
-            with open(os.path.join(source_path,"msg.txt"), 'w') as file:
+            await with open(os.path.join(source_path,"msg.txt"), 'w') as file:
                 file.write((str(message.channel.guild.id),str(message.channel.id),str(message.id)))
             
             retrofit()
