@@ -174,7 +174,7 @@ async def on_ready():
     try:
         with open(os.path.join(source_path,"msg.txt"), 'r') as file:
             dpath = file.readline().split() # guild, channel, message
-            msg = await client.get_guild(dpath[0]).get_channel(dpath[1]).fetch_message(dpath[2])
+            msg = await client.get_guild(int(dpath[0])).get_channel(int(dpath[1])).fetch_message(int(dpath[2]))
             await msg.add_reaction("✅")
     except:
         return
