@@ -14,7 +14,7 @@
  - poi
  - tarot card readings
  - minesweeper
- 
+
  '''
 
 import discord
@@ -83,7 +83,7 @@ async def setVol(num,message):
     global source
     if num > 100 or num < 0:
         await message.add_reaction("❌")
-    else: 
+    else:
         vol = num * 0.01
         source.source.volume = vol
         await message.add_reaction("✔")
@@ -143,7 +143,7 @@ async def weather(message):
     elif " fire" in message.content.lower():
         await message.add_reaction("🔥")
         await setWeather("bonfire.wav",message)
-    
+
     elif " clear" in message.content.lower(): # clears the weather
         await message.add_reaction("☀")
         await setWeather("clear",message)
@@ -202,7 +202,7 @@ async def on_raw_reaction_add(payload):
                 async with client.get_channel(payload.channel_id).typing():
                     for role in client.get_guild(payload.guild_id).get_member(payload.user_id).roles:
                         if role.id == 676571207323090944:
-                            
+
                             msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
                             outString = msg.author.mention + "\'s post in <#" + str(msg.channel.id) + "> " + random.choice(sauce_messages)
                             await msg.attachments[-1].save(os.path.join(source_path,'images','chefchoice.jpg'))
@@ -213,12 +213,26 @@ async def on_raw_reaction_add(payload):
             async with client.get_channel(payload.channel_id).typing():
                 for role in client.get_guild(payload.guild_id).get_member(payload.user_id).roles:
                     if role.id == 676571207323090944:
-                        
+
                         msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
                         outString = msg.author.mention + "\'s post in <#" + str(msg.channel.id) + "> " + random.choice(sauce_messages)
                         await msg.attachments[-1].save(os.path.join(source_path,'images','chefchoice.jpg'))
                         await client.get_channel(592225505592344577).send(outString,file=discord.File(os.path.join(source_path,'images','chefchoice.jpg')))
 
+    roles_dict = {
+        "🍺" : 696441249309130774
+    }
+
+    msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
+    role_message_id = 696441485117227098 # id of message that is the main role adder
+    if payload.message_id == role_message_id:
+        role = msg.author.guild.get_role(roles_dict[payload.emoji.name])
+        try:
+            await msg.author.add_roles(role)
+        except Exception as _:
+            return
+        msg.author.send("Role added: " + role.name)
+        
 
 
 @client.event
@@ -228,7 +242,7 @@ async def on_member_join(member):
         await client.get_channel(675182191520776214).send("Ohayo " + member.mention + "\nWelcome to Yoni's Sauce Emporium! Please take a second to read the #rules channel before getting lost in the sauce. If you have any further inquires, feel free to ask " + client.get_user(173839815400357888).mention + ".")
         await member.add_roles(member.guild.get_role(592215547647754240))
 
-@client.event 
+@client.event
 async def on_message(message): # Basically my Main
     print(f"{message.channel.guild.name[:4]} {message.channel}: {message.author}: {message.content}")
 
@@ -246,7 +260,7 @@ async def on_message(message): # Basically my Main
 
     if "!leave" in message.content.lower(): #bot leaves voice channel
         await leave(message)
-        
+
     if "!drip" in message.content.lower(): # simple ping
         await message.channel.send("drop!")
 
@@ -330,11 +344,11 @@ async def on_message(message): # Basically my Main
                     await snap(message)
                     #await message.add_reaction("<a:snap:583370125592494081>")
                     await message.channel.send("<a:snap:583370125592494081>")
-        
+
 
     if "!weather" in message.content.lower(): # weather commands (plays into an internal function for simplicity)
         await weather(message)
-    
+
     elif "!toggledownfall" in message.content.lower(): #toggles between 'clear' and 'rain'
         if currentWeather == 'clear':
             await setWeather('rain',message)
@@ -343,6 +357,6 @@ async def on_message(message): # Basically my Main
             await setWeather('clear',message)
             await message.add_reaction("☀")
 
-    
+
 
 client.run(getText(os.path.join(source_path,'keychain','token.txt')))
