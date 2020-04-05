@@ -168,6 +168,11 @@ async def snap(message):
 async def on_ready():
     print(f" {client.user}, ready to sortie")
     await client.change_presence(activity=currStatus)
+    '''
+    try:
+        with open(os.path.join(source_path,"msg.txt"), 'r') as file:
+            await get_message
+    '''
 
 @client.event
 async def on_raw_reaction_add(payload):
@@ -218,7 +223,7 @@ async def on_raw_reaction_add(payload):
                         outString = msg.author.mention + "\'s post in <#" + str(msg.channel.id) + "> " + random.choice(sauce_messages)
                         await msg.attachments[-1].save(os.path.join(source_path,'images','chefchoice.jpg'))
                         await client.get_channel(592225505592344577).send(outString,file=discord.File(os.path.join(source_path,'images','chefchoice.jpg')))
-
+    '''
     roles_dict = {
         "🍺" : 696441249309130774
     }
@@ -237,7 +242,7 @@ async def on_raw_reaction_add(payload):
         except Exception as e:
             await msg.channel.send(type(e)) #debug4
             return
-        
+    '''
         
 
 
@@ -295,6 +300,11 @@ async def on_message(message): # Basically my Main
     if "!retrofit" in message.content.lower():
         if (message.author.id == authorId):
             await message.add_reaction("🔄")
+            '''
+            with open(os.path.join(source_path,"msg.txt"), 'w') as file:
+                file.write(message.channel.id)
+                file.write(message.id)
+            '''
             retrofit()
             await client.close()
 
