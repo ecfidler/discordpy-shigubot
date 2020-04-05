@@ -169,13 +169,16 @@ async def on_ready():
     print(f" {client.user}, ready to sortie")
     await client.change_presence(activity=currStatus)
 
+    
     global source_path
-
     try:
         with open(os.path.join(source_path,"msg.txt"), 'r') as file:
             dpath = file.readline().split() # guild, channel, message
             msg = await client.get_guild(dpath[0]).get_channel(dpath[1]).fetch_message(dpath[2])
             await msg.add_reaction("✅")
+    except:
+        return
+    
 
 @client.event
 async def on_raw_reaction_add(payload):
@@ -305,8 +308,8 @@ async def on_message(message): # Basically my Main
         if (message.author.id == authorId):
             await message.add_reaction("🔄")
 
-            await with open(os.path.join(source_path,"msg.txt"), 'w') as file:
-                file.write((str(message.channel.guild.id),str(message.channel.id),str(message.id)))
+            with open(os.path.join(source_path,"msg.txt"), 'w') as file:
+                file.write((str(message.channel.guild.id) + " " + str(message.channel.id) + " " + str(message.id)))
             
             retrofit()
             await client.close()
