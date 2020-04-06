@@ -22,6 +22,7 @@ import asyncio
 import random
 import os
 import time
+import subprocess
 
 from help import helpEmbed
 from dice import dice
@@ -175,7 +176,9 @@ async def on_ready():
         with open(os.path.join(source_path,"msg.txt"), 'r') as file:
             dpath = file.readline().split() # guild, channel, message
             msg = await client.get_guild(int(dpath[0])).get_channel(int(dpath[1])).fetch_message(int(dpath[2]))
-            await msg.add_reaction("✅")
+        await msg.add_reaction("✅")
+        result = subprocess.run(['git', 'log','-1','--pretty=%B'], shell=True, text=True, capture_output=True)
+        await msg.channel.send("note: "+ result.stdout)
     except:
         return
     
@@ -205,7 +208,7 @@ async def on_raw_reaction_add(payload):
             except:
                 await msg.channel.send("No image found in message")
 
-    sauce_messages = ["earned 3 michelin stars!","was some good shit"]
+    sauce_messages = ["earned 3 michelin stars!","was some good shit."]
  #592222434396995604
 
     if payload.emoji.name == "🔵": #chef's choice mild
