@@ -178,6 +178,7 @@ async def on_ready():
             msg = await client.get_guild(int(dpath[0])).get_channel(int(dpath[1])).fetch_message(int(dpath[2]))
         await msg.add_reaction("✅")
         result = subprocess.run(['git', 'log','-1','--pretty=%B'], shell=True, text=True, capture_output=True)
+        asyncio.sleep(5)
         await msg.channel.send("note: "+ result.stdout)
     except:
         return
