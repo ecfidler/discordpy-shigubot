@@ -230,6 +230,7 @@ async def on_raw_reaction_add(payload):
                         await msg.attachments[-1].save(os.path.join(source_path,'images','chefchoice.jpg'))
                         await client.get_channel(592225505592344577).send(outString,file=discord.File(os.path.join(source_path,'images','chefchoice.jpg')))
     
+    '''
     roles_dict = {
         "🍺" : 696441249309130774,
         "beer" : 696441249309130774,
@@ -241,15 +242,14 @@ async def on_raw_reaction_add(payload):
         await msg.channel.send("debug2")
         
         try:
-            await msg.author.add_roles(await msg.channel.guild.get_role(roles_dict[payload.emoji.name]))
-            #role = await msg.author.guild.get_role(roles_dict[payload.emoji.name]) # roles_dict[payload.emoji.name] // 696441249309130774
+            role = await msg.author.guild.get_role(roles_dict[payload.emoji.name]) # roles_dict[payload.emoji.name] // 696441249309130774
             await msg.channel.send("debug3")
-            #await msg.author.add_roles(role)
+            await msg.author.add_roles(role)
             await msg.author.send("Role added: " + role.name)
         except Exception as e:
             await msg.channel.send(type(e)) #debug4
             return
-    
+    '''
         
 
 
