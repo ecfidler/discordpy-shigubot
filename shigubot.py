@@ -233,16 +233,22 @@ async def on_raw_reaction_add(payload):
     msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
     role_message_id = 696441485117227098 # id of message that is the main role adder 
     if payload.message_id == role_message_id:
-        
+
         delim = payload.emoji.name
 
-        if delim == "🍺": # test
-            role = await msg.author.guild.get_role(696441249309130774)
-        else:
-            return
-        
-        await msg.author.add_roles(role)
-        await msg.author.send("Role added: " + role.name)
+        await msg.channel.send(delim)
+        try:
+            if delim == "🍺": # test
+                await msg.channel.send("debug2")
+                role = await msg.author.guild.get_role(696441249309130774)
+                await msg.channel.send(type(role))
+            else:
+                return
+            
+            await msg.author.add_roles(role)
+            await msg.author.send("Role added: " + role.name)
+        except Exception as e:
+            await msg.channel.send(str(e))
         
 
 
@@ -285,10 +291,10 @@ async def on_message(message): # Basically my Main
                 "valet":675182191520776214,
                 "general":592217976061689866
             }
-            msg = message.content.strip("!echo ").split()
+            msg = message.content.lstrip("!echo ").split()
             id_or_name = msg[0]
             if "/" in id_or_name:
-                await client.get_guild(int(id_or_name.split("/")[0])).get_channel(int(id_or_name.split("/")[1])).send(message.content.strip("!echo ").split(" ",1)[1])
+                await client.get_guild(int(id_or_name.split("/")[0])).get_channel(int(id_or_name.split("/")[1])).send(message.content.lstrip("!echo ").split(" ",1)[1])
             elif id_or_name in channelDict:
                 try:
                     await message.guild.get_channel(channelDict[id_or_name]).send(message.content.strip("!echo ").split(" ",1)[1])
