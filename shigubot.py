@@ -170,18 +170,18 @@ async def on_ready():
     print(f" {client.user}, ready to sortie")
     await client.change_presence(activity=currStatus)
 
-    
     global source_path
+    
     try:
         with open(os.path.join(source_path,"msg.txt"), 'r') as file:
             dpath = file.readline().split() # guild, channel, message
             msg = await client.get_guild(int(dpath[0])).get_channel(int(dpath[1])).fetch_message(int(dpath[2]))
         await msg.add_reaction("✅")
         result = subprocess.run(['git', 'log','-1','--pretty=%B'], shell=True, text=True, capture_output=True)
-        asyncio.sleep(5)
-        await msg.channel.send("note: "+ result.stdout)
-    except:
-        return
+        await msg.channel.send("note: "+ str(result.stdout))
+    except Exception as e:
+        msg = await client.get_guild(int(dpath[0])).get_channel(int(dpath[1])).fetch_message(int(dpath[2]))
+        msg.channel.send(str(type(e)))
     
 
 @client.event
