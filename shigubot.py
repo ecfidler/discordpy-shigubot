@@ -235,11 +235,11 @@ async def on_raw_reaction_add(payload):
                         await client.get_channel(592225505592344577).send(outString,file=discord.File(os.path.join(source_path,'images','chefchoice.jpg')))
     
     roles_dict = {
-        "🍺" : 696441249309130774
+        "🕵" : 696441249309130774
     }
 
     msg = await client.get_channel(payload.channel_id).fetch_message(payload.message_id)
-    role_message_id = 696441485117227098 # id of message that is the main role adder 
+    role_message_id = 697236225467220069 # id of message that is the main role adder 
     if payload.message_id == role_message_id:
         
         try:
