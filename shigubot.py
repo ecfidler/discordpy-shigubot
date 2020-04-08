@@ -247,6 +247,7 @@ async def on_raw_reaction_add(payload):
             await client.get_guild(payload.guild_id).get_member(payload.user_id).add_roles(role)
             await client.get_guild(payload.guild_id).get_member(payload.user_id).send("Role added: " + role.name)
         except Exception as e:
+            await client.get_guild(payload.guild_id).get_member(payload.user_id).send(str(type(e)))
             return
         
 
