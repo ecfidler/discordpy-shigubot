@@ -16,12 +16,6 @@ your discord token
 
 #
 
-Name: owmkey.txt
-
-your openweathermaps api key
-
-#
-
 Name: redditkey.txt
 
 client id of your reddit application
