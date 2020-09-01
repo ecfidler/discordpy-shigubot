@@ -31,7 +31,7 @@ class Startup(commands.Cog):
         random.shuffle(pastaBuffer)
         return pastaBuffer
 
-    @commands.command()
+    @commands.command(help="gets a copypasta from r/copypasta",brief="copypasta")
     async def pasta(self, ctx, *tts):
         speak = "tts" in tts
         if not self.pastaList:
