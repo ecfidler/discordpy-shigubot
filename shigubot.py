@@ -1,3 +1,10 @@
+'''
+Written by Ethan Fidler, 2020
+
+Next Goal: add in toggledownfall, new cog 'storm'
+
+'''
+
 # System Libraries
 
 import asyncio
@@ -24,7 +31,7 @@ source_path = os.path.dirname(os.path.abspath(__file__))
 token = getText(os.path.join(source_path,'keychain','token.txt'))
 owner = 173839815400357888 # @fops#1969
 
-# Set up Client
+# Setup Client
 
 bot = commands.Bot(prefix)
 
@@ -35,6 +42,7 @@ bot.owner_id = owner
 bot.load_extension('cogs.admin')
 bot.load_extension('cogs.startup')
 bot.load_extension('cogs.reddit')
+bot.load_extension('cogs.storm')
 
 # Run Client
 
