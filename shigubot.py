@@ -42,8 +42,8 @@ bot.owner_id = owner
 bot.load_extension('cogs.admin')
 bot.load_extension('cogs.startup')
 bot.load_extension('cogs.reddit')
-bot.load_extension('cogs.storm')
-
+bot.load_extension('cogs.pin')
+# bot.load_extension('cogs.storm') reload once FFMPEG works again
 # Run Client
 
 bot.run(token)

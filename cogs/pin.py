@@ -2,9 +2,21 @@ from discord.ext import commands
 import discord
 import asyncio
 import os
+
+'''
 from util.checks import is_whid, is_major
 from util.macros import LOW, PIN
 from util.make import transcribe
+'''
+
+from .util.checks import is_whid, is_major
+#from .util.macros import PIN, LOW
+from .util.make import transcribe
+
+# Temp Macros
+
+PIN = "📌"
+LOW = 580587430776930314
 
 def setup(bot):
     bot.add_cog(Pin(bot))
@@ -19,7 +31,7 @@ class Pin(commands.Cog):
         emoji = payload.emoji.name
 
         # Verify the correct channal and Emoji
-        if not (is_whid(payload) and emoji == PIN):
+        if not (is_whid(payload) and emoji == PIN): # PIN
             return
 
         member = payload.member
@@ -28,20 +40,10 @@ class Pin(commands.Cog):
         if not is_major(member):
             return
 
-        message = await member.fetch_message(payload.message_id)
+        message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
 
         pin_embed = transcribe(message,member.display_name)
 
-        await self.bot.get_channel(LOW).send(embed=pin_embed)
+        await self.bot.get_channel(LOW).send(embed=pin_embed) # LOW
 
         await message.channel.send("Pinned!")
-
-
-
-
-
-
-        
-
-        
-        

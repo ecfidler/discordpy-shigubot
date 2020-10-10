@@ -1,5 +1,7 @@
 import discord
 
+video_types = ['.mov','.mp4','.mkv']
+
 # Returns a lowlight pin (not starboard clone)
 def transcribe(message,pinner):
     content = message.content
@@ -10,6 +12,7 @@ def transcribe(message,pinner):
 
     for attachment in message.attachments:
         takenMessage.set_image(url=attachment.url)
+
     userName = message.author.display_name
     pfp = message.author.avatar_url
     channel = message.channel.name
