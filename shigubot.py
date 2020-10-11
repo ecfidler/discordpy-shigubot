@@ -185,7 +185,7 @@ async def on_ready():
         await msg.channel.send("note: "+ str(result.stdout))
     except Exception as e:
         msg = await client.get_guild(int(dpath[0])).get_channel(int(dpath[1])).fetch_message(int(dpath[2]))
-        msg.channel.send(str(type(e)))
+        await msg.channel.send(str(type(e)))
     
 
 @client.event
