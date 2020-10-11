@@ -33,8 +33,12 @@ from pin import transcribe
 from saucefinder import makeSauceEmbed
 from retrofit import retrofit
 
+intents = discord.Intents.default()
+intents.typing = False
+intents.presences = False
+
 #globals
-client = discord.Client()
+client = discord.Client(intents=intents)
 authorId = 173839815400357888 # fops#1969
 source_path = os.path.dirname(os.path.abspath(__file__))
 currentWeather = os.path.join(source_path,'sounds','rain.wav')
