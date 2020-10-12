@@ -36,6 +36,7 @@ from retrofit import retrofit
 intents = discord.Intents.default()
 intents.typing = False
 intents.presences = False
+intents.members = True
 
 #globals
 client = discord.Client(intents=intents)
