@@ -211,8 +211,9 @@ async def on_raw_reaction_add(payload):
                 except Exception as e:
                     await msg.channel.send("Error, go tell " + client.get_user(173839815400357888).mention)
                     print(e)
-            except:
+            except Exception as e:
                 await msg.channel.send("No image found in message")
+                print(e)
 
     sauce_messages = ["earned 3 michelin stars!","was some good shit."]
  #592222434396995604
