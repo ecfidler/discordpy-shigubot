@@ -10,6 +10,8 @@ MILD = 592222434396995604 # chef's choice mild in sauce emporium
 SPICY = 592225505592344577 # chef's choice spicy in sauce emporium
 YPANTRY = 688202956599853199 # yoni's pantry in sauce emporium
 FPANTRY = 688213248163709112 # fops' pantry in sauce emporium
+TPANTRY = 771774117422301215 # tbone's pantry in sauce emporium
+KITCHEN = 698708633831211078 # kitchen in sauce emporium
 
 # Role Macros
 MAJOR = 374095810868019200
@@ -18,10 +20,11 @@ PATRON = 592215547647754240
 NSFW = 696441249309130774
 
 # Emoji Macros
-PIN = "📌"
+PIN = "📌" # pin message to lowlights
 RAIN = "🌩"
 SHINE = "☀"
-SAUCE = "🍝"
-BLUE = "🔵"
-RED = "🔴"
-LOAD = "🔄"
+SAUCE = "🍝" # get sauce nao
+BLUE = "🔵" # chef's choice mild
+RED = "🔴" # chef's choice spicy
+PURPLE = "🟣" # chef's pantry
+LOAD = "🔄" # retrofit

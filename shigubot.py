@@ -30,20 +30,22 @@ prefix = "$w "
 source_path = os.path.dirname(os.path.abspath(__file__))
 token = getText(os.path.join(source_path,'keychain','token.txt'))
 owner = 173839815400357888 # @fops#1969
+intents = discord.Intents.all()
 
 # Setup Client
 
-bot = commands.Bot(prefix)
+bot = commands.Bot(prefix, intents=intents)
 
 bot.source_path = source_path
-
 bot.owner_id = owner
 
 bot.load_extension('cogs.admin')
 bot.load_extension('cogs.startup')
 bot.load_extension('cogs.reddit')
 bot.load_extension('cogs.pin')
-# bot.load_extension('cogs.storm') reload once FFMPEG works again
+bot.load_extension('cogs.storm')
+bot.load_extension('cogs.emporium')
+
 # Run Client
 
 bot.run(token)

@@ -9,14 +9,15 @@ from util.macros import LOW, PIN
 from util.make import transcribe
 '''
 
-from .util.checks import is_whid, is_major
-#from .util.macros import PIN, LOW
-from .util.make import transcribe
+from .util_macros import PIN, LOW
+from .util_checks import is_whid, is_major
+from .util_make import transcribe
 
 # Temp Macros
-
+'''
 PIN = "📌"
 LOW = 580587430776930314
+'''
 
 def setup(bot):
     bot.add_cog(Pin(bot))
@@ -41,7 +42,7 @@ class Pin(commands.Cog):
             return
 
         message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
-
+        
         pin_embed = transcribe(message,member.display_name)
 
         await self.bot.get_channel(LOW).send(embed=pin_embed) # LOW

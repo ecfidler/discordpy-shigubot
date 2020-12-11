@@ -1,7 +1,8 @@
-from discord.ext import commands
+#from discord.ext import commands
 import discord
-#from macros import *
-# from macros import WHID, YONI, RULES, MILD, SPICY, YPANTRY, FPANTRY, MAJOR, CHEF
+
+#from macros import WHID, YONI, RULES, MILD, SPICY, YPANTRY, FPANTRY, TPANTRY, MAJOR, CHEF
+
 
 # Temp Macros
 
@@ -13,6 +14,7 @@ MILD = 592222434396995604 # chef's choice mild in sauce emporium
 SPICY = 592225505592344577 # chef's choice spicy in sauce emporium
 YPANTRY = 688202956599853199 # yoni's pantry in sauce emporium
 FPANTRY = 688213248163709112 # fops' pantry in sauce emporium
+TPANTRY = 771774117422301215 # tbone's pantry in sauce emporium
 
 MAJOR = 374095810868019200
 CHEF = 676571207323090944
@@ -41,6 +43,9 @@ def is_yPantry(channel):
 
 def is_fPantry(channel):
     return channel.id == FPANTRY
+
+def is_tPantry(channel):
+    return channel.id == TPANTRY
 
 # Role Checks
 
