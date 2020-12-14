@@ -31,11 +31,11 @@ class Pin(commands.Cog):
 
         emoji = payload.emoji.name
 
-        # Verify the correct channal and Emoji
-        if not (is_whid(payload) and emoji == PIN): # PIN
-            return
-
         member = payload.member
+
+        # Verify the correct channal and Emoji
+        if not (is_whid(member) and emoji == PIN): # PIN
+            return
 
         # Verify that the user has permissions to use command
         if not is_major(member):

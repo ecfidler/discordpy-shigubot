@@ -5,7 +5,7 @@ import random
 import os
 
 from .util_checks import is_yoni, is_chef
-from .util_macros import RULES, MILD, SPICY, YPANTRY, FPANTRY, TPANTRY, KITCHEN, BLUE, RED, PURPLE
+from .util_macros import RULES, VALET, MILD, SPICY, YPANTRY, FPANTRY, TPANTRY, KITCHEN, BLUE, RED, PURPLE, PATRON, NSFW, SPEAK, SPEAKALT
 
 sauce_messages = ["earned 3 michelin stars!","was some good shit.","brought tears to the chefs' eyes.","caught the attention of a chef!","deserved special recgnition!"]
 
@@ -37,20 +37,48 @@ class Emporium(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
+        
+        member = payload.member
 
-        if not (is_yoni(payload) and is_chef(payload.member)):
+        if not (is_yoni(member)):
             return
 
-        message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
+        channel = await self.bot.get_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+
+        if (channel == RULES and (payload.emoji.name == SPEAK or payload.emoji.name == SPEAKALT)):
+            await member.add_roles(member.guild.get_role(NSFW))
+            return
+
+        # Chef only Commands
+
+        if not is_chef(member):
+            return
+
+        # Push Images to Pantries
 
         if payload.emoji.name == BLUE:
             await self.push_image(message,MILD)
+            return
 
         if payload.emoji.name == RED:
             await self.push_image(message,SPICY)
+            return
 
         if payload.emoji.name == PURPLE:
-            dest = pantries.get(payload.member.id,KITCHEN) # returns the id of #kitchen if used by non pantried chef
+            dest = pantries.get(member.id,KITCHEN) # returns the id of #kitchen if used by non pantried chef
             await self.push_image(message,dest,False)
+            return
 
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+
+        if not is_yoni(member):
+            return
         
+        owner = "<@{fops}>".format(fops=self.bot.owner_id)
+
+        out = "Ohayo {user}!\nWelcome to Yoni's Sauce Emporium! Please take a second to read the {rules} channel before getting lost in the sauce. If you have any questions, feel free to ask {fops}.".format(user=member.mention, rules=self.bot.get_channel(RULES).mention, fops=owner)
+        
+        await self.bot.get_channel(VALET).send(out)
+        await member.add_roles(member.guild.get_role(PATRON))

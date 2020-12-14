@@ -6,6 +6,7 @@ TEST = 543283759407955974 # testbed server
 # Channel Macros
 LOW = 580587430776930314 # lowlights channel in what have i done
 RULES = 592216496659496990 # rules channel in sauce emporium
+VALET = 675182191520776214 # welcome channel in sauce emporium
 MILD = 592222434396995604 # chef's choice mild in sauce emporium
 SPICY = 592225505592344577 # chef's choice spicy in sauce emporium
 YPANTRY = 688202956599853199 # yoni's pantry in sauce emporium
@@ -28,3 +29,5 @@ BLUE = "🔵" # chef's choice mild
 RED = "🔴" # chef's choice spicy
 PURPLE = "🟣" # chef's pantry
 LOAD = "🔄" # retrofit
+SPEAK = "🕵" # NSFW channel key
+SPEAKALT = "🕵️‍♂️" # alternate NSFW key
