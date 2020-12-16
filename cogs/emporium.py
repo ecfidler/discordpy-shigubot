@@ -48,6 +48,7 @@ class Emporium(commands.Cog):
 
         if (channel == RULES and (payload.emoji.name == SPEAK or payload.emoji.name == SPEAKALT)):
             await member.add_roles(member.guild.get_role(NSFW))
+            await member.send("You have been given role: _Connoisseur_")
             return
 
         # Chef only Commands
@@ -69,6 +70,21 @@ class Emporium(commands.Cog):
             dest = pantries.get(member.id,KITCHEN) # returns the id of #kitchen if used by non pantried chef
             await self.push_image(message,dest,False)
             return
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, payload):
+        
+        channel = await self.bot.get_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        member = message.author
+
+        if not (is_yoni(member)):
+            return
+
+        if (payload.emoji.name == SPEAK or payload.emoji.name == SPEAKALT):
+
+            await member.remove_roles(member.guild.get_role(NSFW))
+            await member.send("Role Removed: _Connoisseur_")
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
